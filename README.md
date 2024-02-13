@@ -4,10 +4,10 @@ This repository hosts the collaborative team project for a recipe application.
 
 In this root directory, you'll find three main folders:
 
-+ `docs` - Contains architectural documents, requirements, user stories, visuals, and diagrams.
-+ `server` - Houses the backend project. For setup instructions and more information, please refer to the `README` 
++ `backend-server` - Houses the backend project with node.js. For setup instructions and more information, please refer to the `README` 
 within this directory.
-+ `ui` - Holds the UI (frontend) application.
++ `docs` - Contains architectural documents, requirements, user stories, visuals, and diagrams.
++ `frontend-server` - Holds the UI (frontend) application. Built on the Svelte framework.
 
 
 ## Documentation
