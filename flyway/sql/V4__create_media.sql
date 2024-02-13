@@ -1,0 +1,10 @@
+CREATE TABLE Media (
+  mediaId INT AUTO_INCREMENT PRIMARY KEY,
+  recipeId INT NOT NULL,
+  type VARCHAR(50) NOT NULL,
+  createdAt DATETIME NOT NULL,
+  updatedAt DATETIME NOT NULL,
+  isCover BOOLEAN NOT NULL,
+  content LONGBLOB NOT NULL,
+  FOREIGN KEY (recipeId) REFERENCES Recipe(recipeId)
+);
