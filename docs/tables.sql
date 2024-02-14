@@ -1,102 +1,103 @@
-CREATE TABLE User (
-  userId INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  isAdmin BOOLEAN NOT NULL
+CREATE TABLE users (
+                       user_id SERIAL PRIMARY KEY,
+                       name VARCHAR(255) NOT NULL,
+                       email VARCHAR(255) NOT NULL UNIQUE,
+                       password VARCHAR(255) NOT NULL,
+                       created_at TIMESTAMP NOT NULL,
+                       updated_at TIMESTAMP NOT NULL,
+                       is_admin BOOLEAN NOT NULL
 );
 
-CREATE TABLE Recipe (
-  recipeId INT AUTO_INCREMENT PRIMARY KEY,
-  userId INT NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  instructions TEXT NOT NULL,
-  cookingTime INT NOT NULL,
-  servingSize INT NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  status ENUM('published', 'draft') NOT NULL,
-  FOREIGN KEY (userId) REFERENCES User(userId)
+CREATE TABLE recipes (
+                         recipe_id SERIAL PRIMARY KEY,
+                         user_id INT NOT NULL,
+                         title VARCHAR(255) NOT NULL,
+                         instructions TEXT NOT NULL,
+                         cooking_time INT NOT NULL,
+                         serving_size INT NOT NULL,
+                         status VARCHAR(20) CHECK (status IN ('published', 'draft')),
+                         created_at TIMESTAMP NOT NULL,
+                         updated_at TIMESTAMP NOT NULL,
+                         FOREIGN KEY (user_id) REFERENCES users(user_id)
+
 );
 
-CREATE TABLE Ingredient (
-  ingredientId INT AUTO_INCREMENT PRIMARY KEY,
-  recipeId INT NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  amount DECIMAL(10,2) NOT NULL,
-  unit VARCHAR(50) NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  orderIndex INT NOT NULL,
-  FOREIGN KEY (recipeId) REFERENCES Recipe(recipeId)
+CREATE TABLE ingredients (
+                             ingredient_id SERIAL PRIMARY KEY,
+                             recipe_id INT NOT NULL,
+                             name VARCHAR(255) NOT NULL,
+                             amount DECIMAL(10,2) NOT NULL,
+                             unit VARCHAR(50) NOT NULL,
+                             order_index INT NOT NULL,
+                             created_at TIMESTAMP NOT NULL,
+                             updated_at TIMESTAMP NOT NULL,
+                             FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
 );
 
-CREATE TABLE Media (
-  mediaId INT AUTO_INCREMENT PRIMARY KEY,
-  recipeId INT NOT NULL,
-  type VARCHAR(50) NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  isCover BOOLEAN NOT NULL,
-  content LONGBLOB NOT NULL,
-  FOREIGN KEY (recipeId) REFERENCES Recipe(recipeId)
+CREATE TABLE media (
+                       media_id SERIAL PRIMARY KEY,
+                       recipe_id INT NOT NULL,
+                       type VARCHAR(50) NOT NULL,
+                       is_cover BOOLEAN NOT NULL,
+                       content BYTEA NOT NULL,
+                       created_at TIMESTAMP NOT NULL,
+                       updated_at TIMESTAMP NOT NULL,
+                       FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
 );
 
-CREATE TABLE Comment (
-  commentId INT AUTO_INCREMENT PRIMARY KEY,
-  userId INT NOT NULL,
-  recipeId INT NOT NULL,
-  content TEXT NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  FOREIGN KEY (userId) REFERENCES User(userId),
-  FOREIGN KEY (recipeId) REFERENCES Recipe(recipeId)
+CREATE TABLE comments (
+                          comment_id SERIAL PRIMARY KEY,
+                          user_id INT NOT NULL,
+                          recipe_id INT NOT NULL,
+                          content TEXT NOT NULL,
+                          created_at TIMESTAMP NOT NULL,
+                          updated_at TIMESTAMP NOT NULL,
+                          FOREIGN KEY (user_id) REFERENCES users(user_id),
+                          FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
 );
 
-CREATE TABLE Rating (
-  ratingId INT AUTO_INCREMENT PRIMARY KEY,
-  userId INT NOT NULL,
-  recipeId INT NOT NULL,
-  stars INT NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  UNIQUE(userId, recipeId),
-  FOREIGN KEY (userId) REFERENCES User(userId),
-  FOREIGN KEY (recipeId) REFERENCES Recipe(recipeId)
+CREATE TABLE ratings (
+                         rating_id SERIAL PRIMARY KEY,
+                         user_id INT NOT NULL,
+                         recipe_id INT NOT NULL,
+                         stars INT NOT NULL,
+                         created_at TIMESTAMP NOT NULL,
+                         updated_at TIMESTAMP NOT NULL,
+                         UNIQUE(user_id, recipe_id),
+                         FOREIGN KEY (user_id) REFERENCES users(user_id),
+                         FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
 );
 
-CREATE TABLE Category (
-  categoryId INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL
+CREATE TABLE categories (
+                            category_id SERIAL PRIMARY KEY,
+                            name VARCHAR(255) NOT NULL,
+                            created_at TIMESTAMP NOT NULL,
+                            updated_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE RecipeCategory (
-  recipeId INT NOT NULL,
-  categoryId INT NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  PRIMARY KEY(recipeId, categoryId),
-  FOREIGN KEY (recipeId) REFERENCES Recipe(recipeId),
-  FOREIGN KEY (categoryId) REFERENCES Category(categoryId)
+CREATE TABLE recipes_categories (
+                                   recipe_id INT NOT NULL,
+                                   category_id INT NOT NULL,
+                                   created_at TIMESTAMP NOT NULL,
+                                   updated_at TIMESTAMP NOT NULL,
+                                   PRIMARY KEY(recipe_id, category_id),
+                                   FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id),
+                                   FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
-CREATE TABLE DietaryRestriction (
-  restrictionId INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL
+CREATE TABLE dietary_restrictions (
+                                      restriction_id SERIAL PRIMARY KEY,
+                                      name VARCHAR(255) NOT NULL,
+                                      created_at TIMESTAMP NOT NULL,
+                                      updated_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE RecipeDietaryRestriction (
-  recipeId INT NOT NULL,
-  restrictionId INT NOT NULL,
-  createdAt DATETIME NOT NULL,
-  updatedAt DATETIME NOT NULL,
-  PRIMARY KEY(recipeId, restrictionId),
-  FOREIGN KEY (recipeId) REFERENCES Recipe(recipeId),
-  FOREIGN KEY (restrictionId) REFERENCES DietaryRestriction(restrictionId)
+CREATE TABLE recipes_dietary_restrictions (
+                                             recipe_id INT NOT NULL,
+                                             restriction_id INT NOT NULL,
+                                             created_at TIMESTAMP NOT NULL,
+                                             updated_at TIMESTAMP NOT NULL,
+                                             PRIMARY KEY(recipe_id, restriction_id),
+                                             FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id),
+                                             FOREIGN KEY (restriction_id) REFERENCES dietary_restrictions(restriction_id)
 );
