@@ -1,0 +1,13 @@
+FROM node:18.17.1
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install --production=false
+
+EXPOSE 3000
+
+ENV HOST=0.0.0.0
+
+CMD [ "npm", "run", "dev", "--", "--host", "0.0.0.0"]
