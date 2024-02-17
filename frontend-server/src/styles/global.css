@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --font-family: Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--primary-color);
+  background-image: url('/bg_recipe.webp') !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
