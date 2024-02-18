@@ -2,6 +2,14 @@ version: '3'
 
 services:
 
+  frontend:
+    build: ./frontend-server
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - ./frontend-server:/app
+
   backend:
     build: ./backend-server
     depends_on:
@@ -11,17 +19,9 @@ services:
     restart: unless-stopped
     volumes:
       - ./backend-server:/app
+      - ./frontend-server/build:/app/build/frontend
     env_file:
       - docker.env
-
-  frontend:
-    build: ./frontend-server
-    ports:
-      - 3000:3000
-    restart: unless-stopped
-    volumes:
-      - ./frontend-server:/app
-      - /app/node_modules
 
   database:
     container_name: postgresql_database

@@ -14,7 +14,11 @@ Our back-end is built using the following technologies:
 
 ## How to Setup
 
-No content yet
+This project depends on the `build` directory of the `frontend-server`. 
+Make sure that you run `npm run build` inside the `frontend-server`. 
+
+The root docker compose has been set to make a proper volume for the build version 
+of the frontend-server. 
 
 ### Installation
 

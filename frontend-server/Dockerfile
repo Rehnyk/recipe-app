@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+COPY package*.json ./
+
 RUN npm install --production=false
 
 EXPOSE 3000
