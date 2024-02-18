@@ -24,7 +24,7 @@ services:
       - docker.env
 
   database:
-    container_name: postgresql_database
+    container_name: postgresql_database_omnia
     depends_on:
       - backend
     image: postgres:16.1
