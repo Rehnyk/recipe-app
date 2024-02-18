@@ -2,7 +2,7 @@ Back-end Project
 --------------------
 
 Welcome to our server application, also known as the 
-back-end, for our recipe app.
+back-end, for our recipe index.
 
 ## Technology Stack
 

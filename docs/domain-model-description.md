@@ -9,7 +9,7 @@ This document provides a detailed description of the domain model for our Recipe
 ### User
 
 - **Attributes**: Includes standard user information along with `isAdmin` to distinguish between regular users and administrators.
-- **Justification**: An `isAdmin` flag is used for role-based access control within the app, which allows for differentiation of user privileges without needing a separate table.
+- **Justification**: An `isAdmin` flag is used for role-based access control within the index, which allows for differentiation of user privileges without needing a separate table.
 
 ### Recipe
 
@@ -118,7 +118,7 @@ ensuring that these tasks can be automated with consistency.
 
 In summary, the inclusion of `createdAt` and `updatedAt` in each table is a best practice that 
 supports a wide range of administrative, user, and system functionalities and 
-should be maintained throughout the lifecycle of the app's database schema.
+should be maintained throughout the lifecycle of the index's database schema.
 
 ## Conclusion
 

@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  backend:
+    build: ./backend-server
+    depends_on:
+      - frontend
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - ./backend-server:/app
+    env_file:
+      - docker.env
+
+  frontend:
+    build: ./frontend-server
+    ports:
+      - 9000:9000
+    restart: unless-stopped
+    volumes:
+      - ./frontend-server:/app
+      - /app/node_modules
+
+  database:
+    container_name: postgresql_database
+    depends_on:
+      - backend
+    image: postgres:16.1
+    restart: unless-stopped
+    env_file:
+      - docker.env
+
+  flyway:
+    image: flyway/flyway:10.8.1
+    env_file:
+      - docker.env
+    depends_on:
+      - database
+    volumes:
+      - .:/flyway/sql
+    command: -connectRetries=60 -baselineOnMigrate=true migrate
