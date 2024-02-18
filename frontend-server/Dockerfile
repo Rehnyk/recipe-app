@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm install --production=false
 
-EXPOSE 3000
+EXPOSE 9000
 
 ENV HOST=0.0.0.0
 

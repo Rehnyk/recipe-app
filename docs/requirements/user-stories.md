@@ -1,4 +1,4 @@
-# User stories for recipe app
+# User stories for recipe index
 
 This document is currently in its initial state. Please feel free to make improvements or 
 discuss your opinions regarding each user story with other team members to finalize it. Your input 

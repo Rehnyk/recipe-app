@@ -3,7 +3,7 @@ CREATE TABLE users (
                        name VARCHAR(255) NOT NULL,
                        email VARCHAR(255) NOT NULL UNIQUE,
                        password VARCHAR(255) NOT NULL,
-                       is_admin BOOLEAN NOT NULL,
+                       is_admin BOOLEAN NOT NULL DEFAULT FALSE,
                        created_at TIMESTAMP NOT NULL,
                        updated_at TIMESTAMP NOT NULL
 );
@@ -12,8 +12,7 @@ INSERT INTO users (name, email, password, is_admin, created_at, updated_at)
 VALUES
     ('Admin', 'admin@admin.com', '$2a$10$IML8QCf6xA.alRbW.CG5PuvYc3Qs94vJvoTwbsSehs8s515cUMuZa', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('Alice123', 'alice123@fakeuser.com', '$2a$10$IML8QCf6xA.alRbW.CG5PuvYc3Qs94vJvoTwbsSehs8s515cUMuZa', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    ('Jack Smith', 'jack.smith@fakeuser.com', '$2a$10$IML8QCf6xA.alRbW.CG5PuvYc3Qs94vJvoTwbsSehs8s515cUMuZa', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-;
+    ('Jack Smith', 'jack.smith@fakeuser.com', '$2a$10$IML8QCf6xA.alRbW.CG5PuvYc3Qs94vJvoTwbsSehs8s515cUMuZa', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 CREATE TABLE recipes (
                          recipe_id SERIAL PRIMARY KEY,
@@ -33,8 +32,8 @@ CREATE TABLE ingredients (
                              ingredient_id SERIAL PRIMARY KEY,
                              recipe_id INT NOT NULL,
                              name VARCHAR(255) NOT NULL,
-                             amount DECIMAL(10,2) NOT NULL,
-                             unit VARCHAR(50) NOT NULL,
+                             amount DECIMAL(10,2),
+                             unit VARCHAR(20),
                              order_index INT NOT NULL,
                              created_at TIMESTAMP NOT NULL,
                              updated_at TIMESTAMP NOT NULL,
