@@ -2,10 +2,10 @@ import * as userService from "../services/user-service.js";
 import {app} from "../factories/app-factory.js";
 
 /**
- * This path actually should reflect our frontend pages and setup
- * However until the team is able to configure these two project to
- * run as a single run, we just show hello world!
+ * This path should actually reflect our frontend pages and setup,
+ * we do not need to register this path as it get registered by frontend adapter
  */
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+//
+// app.get('/', (req, res) => {
+//     res.send('Hello World in backend!');
+// });

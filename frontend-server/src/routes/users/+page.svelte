@@ -7,5 +7,7 @@
 
 <h1>Hello world from front end users page</h1>
 
-<style></style>
+<style>
+
+</style>
 

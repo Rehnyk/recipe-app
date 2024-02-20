@@ -8,13 +8,12 @@
  * For more info see: https://kit.svelte.dev/docs/adapter-node
  *
  */
-import adapter from '@sveltejs/adapter-auto';
+// import adapter from '@sveltejs/adapter-auto';
 /*
-* Todo:
-* Use the adapter for node when team is able to use frontend
-* embedding config which is necessary for real production envs!
+*
+* Use the adapter for node instead, which is necessary for embedding our project into the backend
 * */
-// import adapter from '@sveltejs/adapter-node';
+import adapter from '@sveltejs/adapter-node';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

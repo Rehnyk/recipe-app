@@ -12,6 +12,8 @@ COPY . .
 # This is optional since the volume will override it at runtime
 RUN mkdir /app/node_module
 
+RUN npm run build
+
 EXPOSE 3000
 
 ENV HOST=0.0.0.0
