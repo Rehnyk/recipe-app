@@ -2,6 +2,14 @@ version: '3'
 
 services:
 
+  frontend:
+    build: ./frontend-server
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - ./frontend-server:/app
+
   backend:
     build: ./backend-server
     depends_on:
@@ -11,32 +19,25 @@ services:
     restart: unless-stopped
     volumes:
       - ./backend-server:/app
-      - /app/node_modules
-
-  frontend:
-    build: ./frontend-server
-    ports:
-      - 3000:3000
-    restart: unless-stopped  
-    volumes:
-      - ./frontend-server:/app
-      - /app/node_modules
+      - ./frontend-server/build:/app/build/frontend
+    env_file:
+      - docker.env
 
   database:
-    container_name: postgresql_database
+    container_name: postgresql_database_omnia
     depends_on:
-      - backend    
+      - backend
     image: postgres:16.1
     restart: unless-stopped
     env_file:
-      - ./backend-server/.env
+      - docker.env
 
   flyway:
-    image: flyway/flyway:10.7.2-alpine
+    image: flyway/flyway:10.8.1
     env_file:
-      - ./backend-server/.env
+      - docker.env
     depends_on:
       - database
     volumes:
-      - ./flyway/sql:/flyway/sql
-    command: -connectRetries=60 -baselineOnMigrate=true migrate      
+      - .:/flyway/sql
+    command: -connectRetries=60 -baselineOnMigrate=true migrate

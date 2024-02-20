@@ -2,12 +2,12 @@ FROM node:18.17.1
 
 WORKDIR /app
 
-COPY ./src/package*.json ./
-
-WORKDIR /app/src
+COPY package*.json ./
 
 RUN npm install --production=false
 
+COPY . .
+
 EXPOSE 3001
 
-CMD [ "npm", "start"]
+CMD ["npm", "start"]

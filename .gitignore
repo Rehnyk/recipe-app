@@ -6,3 +6,8 @@ node_modules/
 
 # Visual Studio Code
 .vscode/
+
+backend-server/build
+# .env files
+local.env
+backend-server/.env
