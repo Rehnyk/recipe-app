@@ -21,7 +21,8 @@ services:
     volumes:
       - /app/node_modules
       - ./backend-server:/app
-      - ./frontend-server/build:/app/build/frontend
+#TODO: Enable it again when team is able to use the config for production
+#      - ./frontend-server/build:/app/build/frontend
     env_file:
       - docker.env
 
