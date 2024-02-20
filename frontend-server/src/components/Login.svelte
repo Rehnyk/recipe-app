@@ -1,8 +1,8 @@
 
 <script>
-    
+
     function goToSignup() {
-        window.location.href = "/signup"; 
+        window.location.href = "/signup";
     }
 
 </script>
@@ -18,7 +18,7 @@
 </svelte:head>
 
 <style>
-  
+
   .login-form {
     width: 340px;
     margin: 50px auto;
@@ -51,7 +51,7 @@
 <h1>Welcome to Recipe App Login</h1>
 <div class="login-form">
     <form action="/" method="POST">
-       
+
         <h2 class="text-center">Login</h2>
 
         <div class="form-group">
@@ -70,7 +70,7 @@
 
         <div class="clearfix">
             <!-- You can include additional elements or logic here -->
-            <!-- <label class="pull-left checkbox-inline"><input type="checkbox"></label> 
+            <!-- <label class="pull-left checkbox-inline"><input type="checkbox"></label>
             <a href="#" class="pull-right"></a> -->
         </div>
     </form>
