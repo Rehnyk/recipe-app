@@ -9,6 +9,10 @@
  *
  */
 // import adapter from '@sveltejs/adapter-auto';
+/*
+*
+* Use the adapter for node instead, which is necessary for embedding our project into the backend
+* */
 import adapter from '@sveltejs/adapter-node';
 
 /** @type {import('@sveltejs/kit').Config} */

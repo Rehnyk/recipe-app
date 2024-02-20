@@ -28,7 +28,8 @@
   <ul>
     <li>Recipes</li>
     <li>About</li>
-    <li>Sign In</li>
+    <li><a href="/login" class="nav-link">Sign In</a></li>
+
   </ul>
 
 </div>

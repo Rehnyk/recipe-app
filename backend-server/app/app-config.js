@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import {app} from "./factories/app-factory.js";
 export default async function configure(){
-
     let frontEndInjector;
 
     if (process.env.IS_DOCKER === 'true') {
@@ -25,9 +24,6 @@ export default async function configure(){
         frontEndInjector = await import("../../frontend-server/build/handler.js");
     }
 
-    // Middleware setup calls
-    // app.use(foo)
-    // app.use(bar) and so on.
     /*
      * Notice:
      *
@@ -36,4 +32,7 @@ export default async function configure(){
      * loaded inside our back-end server
      * */
     app.use(frontEndInjector.handler);
+    // Middleware setup calls
+    // app.use(foo)
+    // app.use(bar) and so on.
 }

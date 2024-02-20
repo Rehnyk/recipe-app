@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+  front_build_volume:
+
 services:
 
   frontend:
@@ -8,7 +11,10 @@ services:
       - 3000:3000
     restart: unless-stopped
     volumes:
+      - /app/node_modules
       - ./frontend-server:/app
+      - front_build_volume:/app/build
+
   backend:
     build: ./backend-server
     depends_on:
@@ -17,8 +23,9 @@ services:
       - 3001:3001
     restart: unless-stopped
     volumes:
+      - /app/node_modules
       - ./backend-server:/app
-      - ./frontend-server/build:/app/build/frontend
+      - front_build_volume:/app/build/frontend
     env_file:
       - docker.env
 

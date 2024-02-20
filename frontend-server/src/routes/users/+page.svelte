@@ -3,9 +3,13 @@
   import Navigation from '../../components/navigation.svelte';
   import Breadcrumb from '../../components/breadcrumb.svelte';
   import Recipelist from '../../components/recipelist.svelte';
+
+  let data;
 </script>
 
 <h1>Hello world from front end users page</h1>
 
-<style></style>
+<style>
+
+</style>
 

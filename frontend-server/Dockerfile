@@ -1,12 +1,18 @@
-FROM node:18.17.1
+FROM node:21.6.1
 
 WORKDIR /app
-
-COPY . .
 
 COPY package*.json ./
 
 RUN npm install
+
+COPY . .
+
+# Create a directory for node_modules
+# This is optional since the volume will override it at runtime
+RUN mkdir /app/node_module
+
+RUN npm run build
 
 EXPOSE 3000
 
