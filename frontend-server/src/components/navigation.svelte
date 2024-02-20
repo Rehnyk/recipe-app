@@ -1,6 +1,4 @@
 <script>
-  import '@fortawesome/fontawesome-free/css/all.css';
-
   let showSearch = false;
   function toggleSearch() {
     showSearch = !showSearch;

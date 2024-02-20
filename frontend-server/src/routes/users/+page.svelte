@@ -1,7 +1,5 @@
 <script>
-  import Navigation from '../../components/navigation.svelte';
-  import Breadcrumb from '../../components/breadcrumb.svelte';
-  import Recipelist from '../../components/recipelist.svelte';
+
    /** @type {import('./$types').PageData} */
   export let data;
 </script>
