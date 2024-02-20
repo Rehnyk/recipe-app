@@ -42,7 +42,6 @@
     justify-content: space-between;
     align-items: center;
     color: rgb(191, 191, 191);
-    padding: 10px;
     height: 50px;
   }
 
