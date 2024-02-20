@@ -6,7 +6,7 @@ COPY . .
 
 COPY package*.json ./
 
-RUN npm install --production=false
+RUN npm install
 
 EXPOSE 3000
 
