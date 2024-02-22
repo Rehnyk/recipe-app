@@ -1,7 +1,7 @@
 import {app} from "../factories/app-factory.js";
 import * as fooService from "../services/foo-service.js";
 
-app.get('/api/foo', async (request, res) => {
+app.get('/api/foo', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     // Allow specific HTTP methods
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -25,5 +25,12 @@ app.get('/api/foo', async (request, res) => {
             name: 'hoo'
         }]
     );
+})
 
+app.get('/api/recipe', async (req, res) => {
+    const recipe = await fooService.showRecipe(2);
+    console.log(recipe)
+    res.send(
+        `<h2>${recipe.title}</h2>`
+    );
 })
