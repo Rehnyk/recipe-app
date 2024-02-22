@@ -1,5 +1,5 @@
 import {app} from "../factories/app-factory.js";
-import * as fooService from "../services/foo-service.js";
+import * as recipeService from "../services/recipe-service.js";
 
 app.get('/api/foo', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,10 +27,11 @@ app.get('/api/foo', async (req, res) => {
     );
 })
 
+
 app.get('/api/recipe', async (req, res) => {
-    const recipe = await fooService.showRecipe(2);
+    const recipe = await recipeService.findRecipe(3);
     console.log(recipe)
     res.send(
-        `<h2>${recipe.title}</h2>`
+        `<h2>Ttile: ${recipe.title}</h2>`
     );
 })
