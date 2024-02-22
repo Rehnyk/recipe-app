@@ -6,3 +6,4 @@ export async function usersCount () {
     const results = await dbPool.query( `SELECT COUNT(*) AS count FROM users`);
     return results.rows[0].count;
 }
+

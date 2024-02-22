@@ -24,6 +24,26 @@ export default async function configure(){
         frontEndInjector = await import("../../frontend-server/build/handler.js");
     }
 
+    // Middleware to set CORS headers
+    app.use((req, res, next) => {
+        // Allow requests from any origin
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        // Allow specific HTTP methods
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+        // Allow specific headers in the request
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        // Allow credentials (cookies, authorization headers, etc.) to be sent in CORS requests
+        res.setHeader('Access-Control-Allow-Credentials', true);
+
+        // Handle preflight requests
+        if (req.method === 'OPTIONS') {
+            // Respond with 200 OK and the allowed methods and headers
+            return res.status(200).end();
+        }
+
+        // Continue to the next middleware
+        next();
+    });
     /*
      * Notice:
      *

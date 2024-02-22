@@ -1,4 +1,3 @@
-import {error} from '@sveltejs/kit';
 
 function loadDummyData() {
     return new Promise((resolve, reject) => {
@@ -20,22 +19,23 @@ function loadDummyData() {
     });
 }
 
+async function remoteLoad(){
+    let d = await fetch('http://backend:3001/api/foo');
+    return d.json();
+}
+
 /** @type {import('./$types').PageLoad} */
 export async function load({params}) {
 
-    const results = await loadDummyData();
+    // const results = await loadDummyData();
+    const results = await remoteLoad();
     console.log('Yeeay data', results);
 
-
-    /*    if (params.slug === 'hello-world') {
-        return {
-            title: 'Hello world!',
-            content: 'Welcome to our blog. Lorem ipsum dolor sit amet...'
-        };
-    }*/
     console.log('Hello from login page');
-    // error(404, 'Not found');
+
     return {
         results
     };
+
+
 }
