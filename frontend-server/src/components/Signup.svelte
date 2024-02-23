@@ -1,8 +1,28 @@
 <script>
-    function goToLogin() {
-        window.location.href = "/login"; 
-    }
-  </script>
+  import { registerUser } from '../Api/userApi';
+
+  let formData = {
+      name: '',
+      email: '',
+      password: ''
+  };
+
+  async function handleSubmit() {
+      try {
+          const response = await registerUser(formData);
+          console.log('Signup successful', response);
+          // Redirect or handle the signup success
+      } catch (error) {
+          console.error('Signup failed:', error);
+          // Handle signup errors here
+      }
+  }
+
+  function goToLogin() {
+      window.location.href = "/login";
+  }
+</script>
+
   
   <svelte:head>
     <title>Signup</title>
@@ -46,25 +66,26 @@
     }
   </style>
   
-  <h1>Welcome to Recipe App Signup</h1>
   <div class="signup-form">
-    <form action="/signup" method="POST">
-      <h2 class="text-center">Signup</h2>
-      <div class="form-group">
-        <label class="control-label" for="name">Username</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Username" required="required">
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="required">
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required">
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">Signup</button>
-      </div>
+    <form on:submit|preventDefault={handleSubmit}>
+        <h2 class="text-center">Signup</h2>
+
+        <div class="form-group">
+            <input type="text" class="form-control" bind:value={formData.name} placeholder="Username" required>
+        </div>
+
+        <div class="form-group">
+            <input type="email" class="form-control" bind:value={formData.email} placeholder="Email" required>
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" bind:value={formData.password} placeholder="Password" required>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Signup</button>
+        </div>
+
+        <p class="text-center">Already have an account? <a href="/login" on:click={goToLogin}>Login</a></p>
     </form>
-    <p class="text-center">Already have an account? <a href="/login" on:click={goToLogin}>Login</a></p>
-  </div>
+</div>

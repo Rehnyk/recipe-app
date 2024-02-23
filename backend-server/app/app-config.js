@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import {app} from "./factories/app-factory.js";
+
 export default async function configure(){
     let frontEndInjector;
 

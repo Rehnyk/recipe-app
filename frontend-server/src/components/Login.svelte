@@ -1,10 +1,26 @@
 
 <script>
+  import { loginUser } from '../Api/userApi';
 
-    function goToSignup() {
-        window.location.href = "/signup";
-    }
+  let formData = {
+      email: '',
+      password: ''
+  };
 
+  async function handleSubmit() {
+      try {
+          const response = await loginUser(formData);
+          console.log('Login successful', response);
+          // Redirect or handle the login success
+      } catch (error) {
+          console.error('Login failed:', error);
+          // Handle login errors here
+      }
+  }
+
+  function goToSignup() {
+      window.location.href = "/signup";
+  }
 </script>
 
 <svelte:head>
@@ -48,33 +64,22 @@
   }
 </style>
 
-<h1>Welcome to Recipe App Login</h1>
 <div class="login-form">
-    <form action="/" method="POST">
+  <form on:submit|preventDefault={handleSubmit}>
+      <h2 class="text-center">Login</h2>
 
-        <h2 class="text-center">Login</h2>
+      <div class="form-group">
+          <input type="email" class="form-control" bind:value={formData.email} placeholder="Email" required>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label" for="name"></label>
-            <input type="text" class="form-control"  id="name" placeholder="Username" name="name" required="required">
-        </div>
+      <div class="form-group">
+          <input type="password" class="form-control" bind:value={formData.password} placeholder="Password" required>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label" for="password"></label>
-            <input type="password" class="form-control" id="password" placeholder="Password" name="password" required="required">
-        </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        </div>
-
-        <div class="clearfix">
-            <!-- You can include additional elements or logic here -->
-            <!-- <label class="pull-left checkbox-inline"><input type="checkbox"></label>
-            <a href="#" class="pull-right"></a> -->
-        </div>
-    </form>
-
-    <p class="text-center"><a href="/signup" on:click={goToSignup}>Signup</a></p>
-
+      <p class="text-center"><a href="/signup" on:click={goToSignup}>Signup</a></p>
+  </form>
 </div>
