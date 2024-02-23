@@ -7,14 +7,14 @@ export async function usersCount () {
     return results.rows[0].count;
 }
 
-<<<<<<< Updated upstream
+
 export async function findUser (id) {
     const dbPool = await connectPool();
     const results = await dbPool.query( `SELECT *  FROM users WHERE user_id = ${id}`);
     return results.rows[0];
 }
 
-=======
+
 export async function addUser(user) {
     const dbPool = await connectPool();
     const { name, email, password } = user;
@@ -43,4 +43,4 @@ export async function updateUser(user) {
     const query = `UPDATE users SET name = '${name}', email = '${email}', updated_at = '${updatedAt}' WHERE id = ${user_id}`;
     await dbPool.query(query);
 }
->>>>>>> Stashed changes
+

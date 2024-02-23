@@ -1,11 +1,10 @@
 # Node.js dependencies
 node_modules/
 
-# IntelliJ
+# Code editors
 .idea/
-
-# Visual Studio Code
 .vscode/
+.DS_store
 
 build
 backend-server/build
