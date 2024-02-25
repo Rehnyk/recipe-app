@@ -1,16 +1,21 @@
 import * as userService from "../services/user-service.js";
-import { addUser, findUserByEmail, updateUser } from "../services/user-service.js";
 import {app} from "../factories/app-factory.js";
+
+import { addUser, findUserByEmail, updateUser } from "../services/user-service.js";
 import bcrypt from 'bcrypt';
-import { isAuthenticated } from '../middleware/auth.js'
+
 
 app.get('/api/users', async (request, response) => {
-   const user = await userService.findUser(2)
+
+    console.log('BODY USERS: ', request.body)
+
+    const user = await userService.findUser(2)
     response.send(
         `<p> Number of users: ${await userService.usersCount()}</p>` +
         user.name
     );
 });
+
 // user registration
 app.post('/register', async (req, res) => {
     try {
@@ -40,7 +45,7 @@ app.post('/login', async (req, res) => {
 });
 
 // Update User Profile
-app.put('/users/:id', isAuthenticated, async (req, res) => {
+app.put('/users/:id',  async (req, res) => {
     try {
         const { id } = req.params;
         const { name, email } = req.body;
@@ -50,3 +55,5 @@ app.put('/users/:id', isAuthenticated, async (req, res) => {
         res.status(500).send('Error updating user');
     }
 });
+
+

@@ -1,7 +1,7 @@
-import * as defController from "./controllers/default-controller.js";
-import * as userController from "./controllers/user-controller.js";
-import * as fooController from "./controllers/foo-controller.js";
-//import * as recipeController from "./controllers/recipe-controller.js";
+const controllers = [
+    "./controllers/default-controller.js",
+    "./controllers/user-controller.js",
+];
 
 
 /**
@@ -10,5 +10,7 @@ import * as fooController from "./controllers/foo-controller.js";
  */
 
 export default async function load(){
-    //
+    for(const module of controllers){
+        await import(module);
+    }
 }
