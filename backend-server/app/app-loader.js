@@ -1,6 +1,7 @@
 const controllers = [
     "./controllers/default-controller.js",
     "./controllers/user-controller.js",
+    "./controllers/rating-controller.js",
 ];
 
 

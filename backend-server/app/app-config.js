@@ -30,7 +30,7 @@ export default async function configure(){
 
     app.use(express.json());
     app.use(cors());
-    app.use(authentication);
+   // app.use(authentication);
 
  //   app.use(frontEndInjector.handler);
 };
