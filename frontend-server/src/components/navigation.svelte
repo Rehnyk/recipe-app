@@ -1,7 +1,32 @@
 <script>
+  import { onMount } from 'svelte';
+  import { user } from '../stores/store'
+
   let showSearch = false;
+  let userName = '';
+
+  onMount(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const userName = localStorage.getItem('userName');
+
+    console.log('Is logged in:', isLoggedIn);
+    console.log('User name:', userName);
+
+    if (isLoggedIn) {
+        user.set({ isLoggedIn: true, details: { name: userName } });
+    }
+});
+
+
   function toggleSearch() {
     showSearch = !showSearch;
+  }
+
+  function logOut() {
+    user.set({ isLoggedIn: false, details: null });
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    window.location.href = "/";
   }
 
 </script>
@@ -26,7 +51,13 @@
   <ul>
     <li>Recipes</li>
     <li>About</li>
-    <li><a href="/login" class="nav-link">Sign In</a></li>
+    {#if $user.isLoggedIn}
+      <li>Welcome, {$user.details.name}</li>
+      <li><button on:click={logOut} class="nav-link">Log Out</button></li>
+    {:else}
+  <li><a href="/login" class="nav-link">Sign In</a></li>
+{/if}
+
 
   </ul>
 

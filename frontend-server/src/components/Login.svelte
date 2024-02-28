@@ -1,6 +1,7 @@
 
 <script>
   import { loginUser } from '../Api/userApi';
+  import { user } from '../stores/store';
 
   let formData = {
       email: '',
@@ -8,15 +9,33 @@
   };
 
   async function handleSubmit() {
-      try {
-          const response = await loginUser(formData);
-          console.log('Login successful', response);
-          // Redirect or handle the login success
-      } catch (error) {
-          console.error('Login failed:', error);
-          // Handle login errors here
-      }
+    try {
+        const response = await loginUser(formData);
+        console.log('Login successful', response);
+
+        // Update the user store
+        user.set({ 
+          isLoggedIn: true, 
+          details: {
+            userId: response.user_id,
+            name: response.name,
+            email: formData.email,
+            isAdmin: response.is_admin
+          }
+        });
+
+        // Store login state in localStorage
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userName', response.name);
+
+        alert("Login successful. Redirecting to dashboard.");
+        window.location.href = "/"; // Redirect to the dashboard or home page
+    } catch (error) {
+        console.error('Login failed:', error);
+        alert("Login failed: " + error.message);
+    }
   }
+
 
   function goToSignup() {
       window.location.href = "/signup";

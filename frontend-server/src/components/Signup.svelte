@@ -1,5 +1,6 @@
 <script>
   import { registerUser } from '../Api/userApi';
+  
 
   let formData = {
       name: '',
@@ -7,20 +8,31 @@
       password: ''
   };
 
-  async function handleSubmit() {
-      try {
-          const response = await registerUser(formData);
-          console.log('Signup successful', response);
-          // Redirect or handle the signup success
-      } catch (error) {
-          console.error('Signup failed:', error);
-          // Handle signup errors here
-      }
-  }
-
   function goToLogin() {
       window.location.href = "/login";
   }
+
+  async function handleSubmit() {
+    try {
+        const response = await registerUser(formData);
+        console.log('Signup successful', response);
+        // Clear the form
+        formData = { name: '', email: '', password: '' };
+        // Redirect or show a success message
+        alert("Signup successful. Redirecting to login.");
+        window.location.href = "/login";
+    } catch (error) {
+        console.error('Signup failed:', error);
+        // Handle signup errors here
+        alert("Signup failed: " + error.message);
+    }
+}
+
+
+
+  // function goToLogin() {
+  //     window.location.href = "/login";
+  // }
 </script>
 
   
