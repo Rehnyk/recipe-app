@@ -13,7 +13,7 @@ export default async function configure(){
         * called /build/frontend/ see docker-compose for more info
         *
         * */
-      //  frontEndInjector = await import("../build/frontend/handler.js");
+     //   frontEndInjector = await import("../build/frontend/handler.js");
     } else {
         dotenv.config({
             path: '../local.env'
@@ -30,7 +30,7 @@ export default async function configure(){
 
     app.use(express.json());
     app.use(cors());
-   // app.use(authentication);
+    app.use(authentication);
 
- //   app.use(frontEndInjector.handler);
+   // app.use(frontEndInjector.handler);
 };
