@@ -1,6 +1,6 @@
 <script>
     import Recipe from '../../../components/Recipe.svelte';
-    import Rating from "../../../components/Rating.svelte";
+    import Rating from "../../../components/Ratings.svelte";
 </script>
 
 

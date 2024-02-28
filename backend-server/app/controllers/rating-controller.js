@@ -16,7 +16,7 @@ app.get('/api/recipe/rating/:recipeId', async (request, response) => {
             ? roundedRating = avg
             : roundedRating = Math.round(avg * 2) / 2;
 
-        response.status(200).send({'rating': roundedRating});
+        response.status(200).send({'stars': roundedRating});
     } catch (e) {
         console.error(e);
         response.status(400).send({'message': 'Unable to retrieve rating for recipe.'});
@@ -29,7 +29,7 @@ app.get('/api/recipe/rating/:recipeId/:userId', async (request, response) => {
         const {userId, recipeId} = request.params;
         const ratingObj = await ratingService.findUserRecipeRating(userId, recipeId);
         console.log('RATING: ', ratingObj)
-        response.status(200).send({ratingObj});
+        response.status(200).send(ratingObj);
     } catch (e) {
         console.error(e);
         response.status(400).send({'message': 'Unable to retrieve rating.'});
