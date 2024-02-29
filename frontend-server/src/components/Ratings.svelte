@@ -1,8 +1,17 @@
 <script>
     import * as ratingService from "../services/rating-service.js";
+    import { useRatingStore }from "../stores/ratings.svelte.js";
+
+    const store = useRatingStore();
+
     //    let { } = $props();
 
-    let recipeRating = {
+
+//         <button on:click={() => counter1.increment()}>Clicks: {counter1.count}</button>
+
+
+
+let recipeRating = {
         recipeId: 2,
         userId: 1,
         stars: 4
