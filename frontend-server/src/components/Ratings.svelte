@@ -1,61 +1,108 @@
 <script>
+    import {onMount} from 'svelte';
     import * as ratingService from "../services/rating-service.js";
-    import { useRatingStore }from "../stores/ratings.svelte.js";
+    import {initRating, useRatingStore} from "../stores/ratings.svelte.js";
+
+
+    onMount(async () => {
+        await initRating();
+    });
 
     const store = useRatingStore();
 
-    //    let { } = $props();
+    console.log('STORE:', store)
 
-
-//         <button on:click={() => counter1.increment()}>Clicks: {counter1.count}</button>
-
-
-
-let recipeRating = {
+    let recipeRating = {
         recipeId: 2,
         userId: 1,
-        stars: 4
+        stars: 3
     }
 
-    let rating = 0;
-    let uRating = 0;
 
-    const fetchRecipeRating = async () => {
-        rating = await ratingService.findRecipeRating(recipeRating);
+    const handleAddRating = async () => {
+        const result = await ratingService.addRating(recipeRating);
+        store.add(result.avgStars, result.newRating.stars);
     };
 
-    const fetchUserRecipeRating = async () => {
-        uRating = await ratingService.findUserRecipeRating(recipeRating);
+    const handleChangeRating = async () => {
+        const result = await ratingService.changeRating(recipeRating);
+        store.change(result.avgStars, result.updatedRating.stars);
+
     };
 
-    const fetchAddRating = async () => {
-        rating = await ratingService.addRating(recipeRating);
+    const handleRemoveRating = async () => {
+        const result = await ratingService.removeRating(recipeRating);
+        store.remove(result.avgStars);
     };
 
-    const fetchChangeRating = async () => {
-        rating = await ratingService.changeRating(recipeRating);
-    };
+    /*
+        const generateStars2 = (rating) => {
+            let starClass = "";
 
-    const fetchRemoveRating = async () => {
-        rating = await ratingService.removeRating(recipeRating);
-    };
+            if (rating >= 0.5) {
+                starClass = "fa-solid fa-star"; // Full star
+            } else if (rating > 0) {
+                starClass = "fa-regular fa-star-half-stroke"; // Half star
+            } else {
+                starClass = "fa-regular fa-star"; // Empty star
+            }
+            return starClass;
+        };
+
+
+        let stars = [];
+
+        const generateStars = (rating) => {
+            stars = [];
+            const fullStars = Math.floor(rating);
+            const halfStarExists = rating % 1 !== 0;
+            const emptyStars = 5 - fullStars - (halfStarExists ? 1 : 0);
+
+            for (let i = 0; i < fullStars; i++) {
+                stars.push("fa-solid fa-star");
+            }
+
+            if (halfStarExists) {
+                stars.push("fa-regular fa-star-half-stroke");
+            }
+
+            for (let i = 0; i < emptyStars; i++) {
+                stars.push("fa-regular fa-star");
+            }
+
+            console.log('STARS:', stars)
+        };
+
+        const handleStarClick = (index) => {
+            // Calculate the new rating based on the index of the clicked star
+            const newRating = index + 1;
+            // Update the store with the new rating
+            store.add(newRating, store.userRating);
+            // Regenerate the star icons based on the new rating
+            generateStars(newRating);
+        };
+    */
+
 
 </script>
 
 <div class="rating-box">
 
-    <button on:click={fetchRecipeRating}>Show Rating</button>
-    <h1>RATING: {rating.stars}</h1>
-    <button on:click={fetchUserRecipeRating}>Show Your Rating</button>
-    <h2>Your rating: {uRating.stars}</h2>
+    <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star"></i>
+    <i class="fa-regular fa-star-half-stroke"></i>
+    <i class="fa-regular fa-star"></i>
 
-    <br>
+    <h1>RATING: {store.recipeRating}</h1>
+
+    <h2>Your rating: {store.userRating}</h2>
+
 
     <p>Rate this recipe</p>
-    <button on:click={fetchChangeRating}>Change</button>
-
-
-
+    <button on:click={handleAddRating}>Add</button>
+    <button on:click={handleChangeRating}>Change</button>
+    <button on:click={handleRemoveRating}>Remove</button>
 </div>
 
 
@@ -66,4 +113,21 @@ let recipeRating = {
         padding: 30px;
     }
 
+    i {
+        font-size: 25px;
+    }
+
+    /*
+        .stars {
+            display: flex;
+        }
+
+        .stars span {
+            cursor: pointer;
+            font-size: 24px;
+            color: #FFD700; !* Change color as needed *!
+            margin-right: 5px;
+        }*/
+
 </style>
+

@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt';
 app.get('/api/users', async (request, response) => {
     try {
         const user = await userService.findUser(2);
+
+        console.log('USERS:', await userService.findAllUsers());
         response.send(
             `<p> Number of users: ${await userService.usersCount()}</p>` +
             user.name

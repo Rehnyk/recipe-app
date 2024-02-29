@@ -1,56 +1,37 @@
-export const useRatingStore = async () => {
-    let recipeRating = $state(null);
-    let userRating = $state(null);
+import * as ratingService from "../services/rating-service.js";
 
-    return {
-        get items() {
-            return items;
-        },
-        add: (item) => {
-            items = [item, ...items];
-        },
-    };
+let recipeRating = $state(0);
+let userRating = $state(0);
 
-};
+export const initRating = async () => {
+    let rRating = await ratingService.findRecipeRating({recipeId: 2});
+    let uRating = await ratingService.findUserRecipeRating({recipeId: 2, userId: 2});
 
-/*
-
-const useItemStore = () => {
-    let items = $state([]);
-
-    return {
-        get items() {
-            return items;
-        },
-        add: (item) => {
-            items = [item, ...items];
-        },
-    };
-};
-
-
-let initialCount = 0;
-
-if (
-    typeof window !== "undefined" &&
-    localStorage.hasOwnProperty("count")
-) {
-    initialCount = parseInt(localStorage.getItem("count"));
+    recipeRating = rRating.avgStars
+    userRating = uRating.stars;
 }
-
-let count = $state(initialCount);
-const useCountStore = () => {
-
+export const useRatingStore = () => {
 
     return {
-        get count() {
-            return count;
+        get recipeRating() {
+            return recipeRating;
         },
-        increment: () => {
-            count++;
-            localStorage.setItem("count", count);
+        get userRating() {
+            return userRating;
+        },
+        add: (recipeR, userR) => {
+            recipeRating = recipeR;
+            userRating = userR;
+        },
+        change: (recipeR, userR) => {
+            recipeRating = recipeR;
+            userRating = userR;
+        },
+        remove: (recipeR) => {
+            recipeRating = recipeR;
+            userRating = 0;
         },
     };
+
 };
 
-export { useCountStore };*/

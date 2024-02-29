@@ -6,6 +6,12 @@ export async function usersCount() {
     return results.rows[0].count;
 }
 
+export async function findAllUsers() {
+    const dbPool = await connectPool();
+    const results = await dbPool.query(`SELECT * FROM users`);
+    return results.rows;
+}
+
 export async function findUser(id) {
     const dbPool = await connectPool();
     const results = await dbPool.query(`SELECT * FROM users WHERE user_id = $1`, [id]);

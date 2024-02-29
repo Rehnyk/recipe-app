@@ -9,6 +9,14 @@ export async function findRecipeRatings(recipeId) {
     return results.rows;
 }
 
+export async function averageRecipeRating( recipeId) {
+    const dbPool = await connectPool();
+    const results = await dbPool.query(`SELECT ROUND(AVG(stars), 2) AS stars
+                                        FROM ratings
+                                        WHERE recipe_id = ${recipeId}`);
+    return results.rows[0];
+}
+
 export async function findUserRecipeRating(userId, recipeId) {
     const dbPool = await connectPool();
     const results = await dbPool.query(`SELECT *

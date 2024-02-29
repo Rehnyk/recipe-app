@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001'; 
+const BASE_URL = 'http://localhost:3001';
 
 export const registerUser = async (userData) => {
     const response = await fetch(`${BASE_URL}/register`, {
@@ -51,6 +51,8 @@ export const loginUser = async (userData) => {
     }
 
     if (contentType && contentType.includes("application/json")) {
+
+        console.log('RESPONSE:', response);
         return response.json();
     } else {
         // If the successful response is not JSON, handle accordingly
@@ -58,11 +60,10 @@ export const loginUser = async (userData) => {
     }
 };
 
-
 export const updateUser = async (userId, userData) => {
     const response = await fetch(`${BASE_URL}/users/${userId}`, {
         method: 'PUT',
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             // Include your authentication token in headers if needed
         },
