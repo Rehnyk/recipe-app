@@ -1,22 +1,16 @@
 <script>
+    import Recipe from '../../../components/Recipe.svelte';
+    import Rating from "../../../components/Ratings.svelte";
 
-   /** @type {import('./$types').PageData} */
-  export let data;
 </script>
 
+
 <div class="white-box">
-
-    <h1>Try to load data from server:</h1>
-    <br>
-    <ul>
-        {#each data.results as r}
-            <li>
-                [{r.id}]: {r.name}
-            </li>
-        {/each}
-    </ul>
-
+    <Recipe />
+    <Rating />
 </div>
+
+
 
 <style>
     .white-box {
@@ -29,4 +23,3 @@
         max-width: 600px;
     }
 </style>
-

@@ -1,5 +1,9 @@
-import * as defController from "./controllers/default-controller.js";
-import * as userController from "./controllers/user-controller.js";
+const controllers = [
+    "./controllers/default-controller.js",
+    "./controllers/user-controller.js",
+    "./controllers/rating-controller.js",
+];
+
 
 /**
  * Make sure all of app's controllers are imported in this file!
@@ -7,5 +11,7 @@ import * as userController from "./controllers/user-controller.js";
  */
 
 export default async function load(){
-    //
+    for(const module of controllers){
+        await import(module);
+    }
 }
