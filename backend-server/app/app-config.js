@@ -5,6 +5,8 @@ import { app } from "./factories/app-factory.js";
 import authentication from "./middleware/auth.js";
 
 export default async function configure() {
+    let frontEndInjector;
+
     if (process.env.IS_DOCKER === 'true') {
 
         /*
@@ -14,12 +16,12 @@ export default async function configure() {
         * */
      //   frontEndInjector = await import("../build/frontend/handler.js");
 
-        // Docker specific configuration
-
     } else {
         dotenv.config({
             path: '../local.env'
         });
+
+    //    frontEndInjector = await import("../../frontend-server/build/handler.js");
     }
 
     app.use(express.json());

@@ -3,85 +3,37 @@
     import * as ratingService from "../services/rating-service.js";
     import {initRating, useRatingStore} from "../stores/ratings.svelte.js";
 
+    let recipeRating;
+    let selectedRating = 3;
 
     onMount(async () => {
-        await initRating();
+        recipeRating = await initRating();
+        console.log('RECIPE RATING:', store.recipeRating)
     });
+
+    const userId = 2;
+    const recipeId = 1;
 
     const store = useRatingStore();
 
-    console.log('STORE:', store)
-
-    let recipeRating = {
-        recipeId: 2,
-        userId: 1,
-        stars: 3
-    }
-
 
     const handleAddRating = async () => {
-        const result = await ratingService.addRating(recipeRating);
+        const result = await ratingService.addRating({ recipeId, userId, stars: selectedRating });
         store.add(result.avgStars, result.newRating.stars);
     };
 
     const handleChangeRating = async () => {
-        const result = await ratingService.changeRating(recipeRating);
+        const result = await ratingService.changeRating({ recipeId, userId, stars: selectedRating });
         store.change(result.avgStars, result.updatedRating.stars);
 
     };
 
     const handleRemoveRating = async () => {
-        const result = await ratingService.removeRating(recipeRating);
+        console.log('REMOVE RATING:', store.recipeRating)
+        const result = await ratingService.removeRating({ recipeId, userId });
         store.remove(result.avgStars);
     };
 
-    /*
-        const generateStars2 = (rating) => {
-            let starClass = "";
-
-            if (rating >= 0.5) {
-                starClass = "fa-solid fa-star"; // Full star
-            } else if (rating > 0) {
-                starClass = "fa-regular fa-star-half-stroke"; // Half star
-            } else {
-                starClass = "fa-regular fa-star"; // Empty star
-            }
-            return starClass;
-        };
-
-
-        let stars = [];
-
-        const generateStars = (rating) => {
-            stars = [];
-            const fullStars = Math.floor(rating);
-            const halfStarExists = rating % 1 !== 0;
-            const emptyStars = 5 - fullStars - (halfStarExists ? 1 : 0);
-
-            for (let i = 0; i < fullStars; i++) {
-                stars.push("fa-solid fa-star");
-            }
-
-            if (halfStarExists) {
-                stars.push("fa-regular fa-star-half-stroke");
-            }
-
-            for (let i = 0; i < emptyStars; i++) {
-                stars.push("fa-regular fa-star");
-            }
-
-            console.log('STARS:', stars)
-        };
-
-        const handleStarClick = (index) => {
-            // Calculate the new rating based on the index of the clicked star
-            const newRating = index + 1;
-            // Update the store with the new rating
-            store.add(newRating, store.userRating);
-            // Regenerate the star icons based on the new rating
-            generateStars(newRating);
-        };
-    */
 
 
 </script>
@@ -98,8 +50,11 @@
 
     <h2>Your rating: {store.userRating}</h2>
 
+    <br>
+    <br>
 
     <p>Rate this recipe</p>
+
     <button on:click={handleAddRating}>Add</button>
     <button on:click={handleChangeRating}>Change</button>
     <button on:click={handleRemoveRating}>Remove</button>
@@ -125,8 +80,7 @@
         .stars span {
             cursor: pointer;
             font-size: 24px;
-            color: #FFD700; !* Change color as needed *!
-            margin-right: 5px;
+            color: #FFD700;
         }*/
 
 </style>
